@@ -1,29 +1,47 @@
-name: Flutter CI
+# Nombre del flujo de trabajo que aparecerá en GitHub Actions
+name: CICD
 
+# Define cuándo se ejecutará este flujo de trabajo
 on:
+  # Se ejecuta cuando se realiza un 'push' (subida) a la rama 'main' o 'develop'
   push:
     branches: [ main ]
+  # Se ejecuta cuando se abre o se actualiza un 'pull request' a las ramas 'main' o 'develop'
   pull_request:
     branches: [ main ]
 
+# Define los 'jobs' (tareas) que se ejecutarán
 jobs:
-  build:
+  test:
+    # Nombre de la tarea
+    name: Run Flutter Tests
+    # El entorno donde se ejecutará (máquina virtual Linux)
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      # 1. Obtener el código del repositorio
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Set up Flutter
+      # 2. Configurar el entorno de Flutter
+      - name: Setup Flutter
+        # Usamos una acción de terceros popular para instalar Flutter
         uses: subosito/flutter-action@v2
         with:
+          # Puedes cambiar 'stable' a 'beta' o especificar una versión
           channel: 'stable'
-          flutter-version: '3.22.0' # You can update this to the latest stable if needed
+          # flutter-version: '3.19.0' # Opcional: para una versión específica
 
-      - name: Flutter doctor
-        run: flutter doctor
-
-      - name: Install dependencies
+      # 3. Instalar dependencias (ejecuta 'flutter pub get')
+      - name: Install Dependencies
         run: flutter pub get
 
-      - name: Run tests
+      # 4. (Opcional) Analizar el código para detectar problemas
+      - name: Analyze Code
+        run: flutter analyze
+
+      # 5. Ejecutar las pruebas unitarias y de widget
+      - name: Run Tests
+        # El comando 'flutter test' encuentra y ejecuta todas las pruebas
+        # en la carpeta 'test/' por defecto.
         run: flutter test
