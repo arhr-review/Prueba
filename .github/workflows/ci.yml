@@ -1,0 +1,35 @@
+# .github/workflows/dart.yml
+name: Dart CI
+
+# Define cuándo se ejecutará el workflow
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Define los trabajos que se ejecutarán
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest # El sistema operativo para ejecutar el job
+    
+    steps:
+      # 1. Checkout del código
+      - uses: actions/checkout@v4
+
+      # 2. Configuración del SDK de Dart
+      # Usaremos una acción oficial para configurar el entorno
+      - uses: dart-lang/setup-dart@v1
+        with:
+          # Puedes especificar una versión de Dart si lo necesitas
+          sdk: stable
+          
+      # 3. Descarga de dependencias (paquetes)
+      - name: Install dependencies
+        run: dart pub get
+
+      # 4. Ejecución de las Pruebas (¡El paso clave!)
+      - name: Run tests
+        # El comando 'dart test' buscará y ejecutará
+        # todos los archivos en el directorio 'test/'.
+        run: dart test
