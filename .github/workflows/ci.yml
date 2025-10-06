@@ -1,38 +1,29 @@
-# .github/workflows/flutter_ci.yml
 name: Flutter CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  test_flutter_app:
-    runs-on: ubuntu-latest # Usa un sistema operativo Linux para el CI
-    
+  build:
+    runs-on: ubuntu-latest
+
     steps:
-      # 1. Checkout del código
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      # 2. Configuración del SDK de Flutter
-      # Usa una acción específica de Flutter para configurar el entorno
-      - uses: subosito/flutter-action@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
-          # Puedes especificar una versión si lo necesitas (ej: '3.19.0')
-          flutter-version: 'stable' 
           channel: 'stable'
+          flutter-version: '3.22.0' # You can update this to the latest stable if needed
 
-      # 3. Descarga de dependencias (paquetes)
-      - name: Get Flutter dependencies
-        # Usa 'flutter pub get' en lugar de 'dart pub get'
+      - name: Flutter doctor
+        run: flutter doctor
+
+      - name: Install dependencies
         run: flutter pub get
 
-      # 4. Análisis estático (Opcional, pero muy recomendado)
-      - name: Analyze code
-        run: flutter analyze
-
-      # 5. Ejecución de las Pruebas (¡El paso clave!)
-      - name: Run unit and widget tests
-        # Usa 'flutter test' para ejecutar todas las pruebas en la carpeta 'test/'
+      - name: Run tests
         run: flutter test
