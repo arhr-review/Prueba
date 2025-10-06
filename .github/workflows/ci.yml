@@ -1,35 +1,38 @@
-# .github/workflows/dart.yml
-name: Dart CI
+# .github/workflows/flutter_ci.yml
+name: Flutter CI
 
-# Define cuándo se ejecutará el workflow
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
-# Define los trabajos que se ejecutarán
 jobs:
-  build_and_test:
-    runs-on: ubuntu-latest # El sistema operativo para ejecutar el job
+  test_flutter_app:
+    runs-on: ubuntu-latest # Usa un sistema operativo Linux para el CI
     
     steps:
       # 1. Checkout del código
       - uses: actions/checkout@v4
 
-      # 2. Configuración del SDK de Dart
-      # Usaremos una acción oficial para configurar el entorno
-      - uses: dart-lang/setup-dart@v1
+      # 2. Configuración del SDK de Flutter
+      # Usa una acción específica de Flutter para configurar el entorno
+      - uses: subosito/flutter-action@v2
         with:
-          # Puedes especificar una versión de Dart si lo necesitas
-          sdk: stable
-          
-      # 3. Descarga de dependencias (paquetes)
-      - name: Install dependencies
-        run: dart pub get
+          # Puedes especificar una versión si lo necesitas (ej: '3.19.0')
+          flutter-version: 'stable' 
+          channel: 'stable'
 
-      # 4. Ejecución de las Pruebas (¡El paso clave!)
-      - name: Run tests
-        # El comando 'dart test' buscará y ejecutará
-        # todos los archivos en el directorio 'test/'.
-        run: dart test
+      # 3. Descarga de dependencias (paquetes)
+      - name: Get Flutter dependencies
+        # Usa 'flutter pub get' en lugar de 'dart pub get'
+        run: flutter pub get
+
+      # 4. Análisis estático (Opcional, pero muy recomendado)
+      - name: Analyze code
+        run: flutter analyze
+
+      # 5. Ejecución de las Pruebas (¡El paso clave!)
+      - name: Run unit and widget tests
+        # Usa 'flutter test' para ejecutar todas las pruebas en la carpeta 'test/'
+        run: flutter test
