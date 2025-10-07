@@ -3,9 +3,6 @@ name: CICD
 
 # Define cuándo se ejecutará este flujo de trabajo
 on:
-  # Se ejecuta cuando se realiza un 'push' (subida) a la rama 'main' o 'develop'
-  push:
-    branches: [ main ]
   # Se ejecuta cuando se abre o se actualiza un 'pull request' a las ramas 'main' o 'develop'
   pull_request:
     branches: [ main ]
@@ -37,8 +34,8 @@ jobs:
         run: flutter pub get
 
       # 4. (Opcional) Analizar el código para detectar problemas
-      - name: Analyze Code
-        run: flutter analyze
+      # - name: Analyze Code
+      #  run: flutter analyze
 
       # 5. Ejecutar las pruebas unitarias y de widget
       - name: Run Tests

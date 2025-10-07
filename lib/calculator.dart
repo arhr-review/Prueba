@@ -2,16 +2,11 @@ import 'dart:math' as math;
 
 /// Clase que contiene las operaciones básicas de una calculadora.
 class Calculator {
-  // ❌ Problema: Remover el Doc Comment para 'add'
+   /// Suma a + b
   double add(num a, num b) => a + b.toDouble();
 
-  // ❌ Problema: Introducir código inutilizado o redundante que un linter odiará
-  double subtract(num a, num b) {
-    var unusedVariable = 1; // 👈 Código que no se usa
-
-    // Y esta línea es intencionalmente larga para romper una regla de estilo
-    return a - b.toDouble();
-  }
+  /// Resta a - b
+  double subtract(num a, num b) => a - b.toDouble();
 
   /// Multiplicación a * b
   double multiply(num a, num b) => a * b.toDouble();
@@ -33,5 +28,3 @@ class Calculator {
 }
 
 // Bloque principal para demostrar el uso de la clase Calculator.
-
-//prueba prueba prueba
