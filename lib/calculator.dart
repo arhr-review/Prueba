@@ -2,7 +2,7 @@ import 'dart:math' as math;
 
 /// Clase que contiene las operaciones básicas de una calculadora.
 class Calculator {
-  /// Suma a + b
+   /// Suma a + b
   double add(num a, num b) => a + b.toDouble();
 
   /// Resta a - b
@@ -28,5 +28,3 @@ class Calculator {
 }
 
 // Bloque principal para demostrar el uso de la clase Calculator.
-
-//prueba prueba prueba
