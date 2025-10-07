@@ -25,6 +25,12 @@ class Calculator {
 
   /// Potencia a^b
   double power(num a, num b) => math.pow(a.toDouble(), b.toDouble()).toDouble();
+
+  /// Raíz cuadrada de a. Lanza ArgumentError si a < 0.
+  double sqrt(num a) {
+    if (a < 0) throw ArgumentError('Square root of negative number');
+    return math.sqrt(a.toDouble());
+  }
 }
 
 // Bloque principal para demostrar el uso de la clase Calculator.
