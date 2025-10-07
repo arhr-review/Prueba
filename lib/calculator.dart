@@ -28,4 +28,4 @@ class Calculator {
 }
 
 // Bloque principal para demostrar el uso de la clase Calculator.
-// cambio minimo prueba prasdsad
+// esto es una nueva prueba del workflow de N8N
