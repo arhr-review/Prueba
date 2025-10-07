@@ -28,3 +28,4 @@ class Calculator {
 }
 
 // Bloque principal para demostrar el uso de la clase Calculator.
+// esto es una nueva prueba del workflow de N8N
